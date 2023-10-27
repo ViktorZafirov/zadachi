@@ -1,0 +1,361 @@
+zadacha 1
+
+public class ArraySum {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3};
+
+        int sum = Sum(array);
+
+        System.out.println("Изход: " + sum);
+    }
+
+    public static int Sum(int[] arr) {
+        int sum = 0;
+        for (int num : arr) {
+            sum += num;
+        }
+        return sum;
+    }
+}
+
+zadacha 2
+
+public class EvenSum {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3};
+
+        int evenSum = EvenSum(array);
+
+        System.out.println("Изход: " + evenSum);
+    }
+
+    public static int EvenSum(int[] arr) {
+        int sum = 0;
+        for (int num : arr) {
+            if (num % 2 == 0) {
+                sum += num;
+            }
+        }
+        return sum;
+    }
+}
+
+zadacha 3
+
+public class OddSum {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3};
+
+        int oddSum = OddSum(array);
+
+        System.out.println("Изход: " + oddSum);
+    }
+
+    public static int OddSum(int[] arr) {
+        int sum = 0;
+        for (int num : arr) {
+            if (num % 2 != 0) {
+                sum += num;
+            }
+        }
+        return sum;
+    }
+}
+
+zadacha 4
+
+import java.util.Arrays;
+
+public class ReverseArray {
+    public static void main(String[] args) {
+        int[] originalArray = {1, 2, 3, 4, 5};
+
+        int[] reversedArray = reverseArray(originalArray);
+
+        System.out.println("Изход: " + Arrays.toString(reversedArray));
+    }
+
+    public static int[] reverseArray(int[] arr) {
+        int[] reversedArray = new int[arr.length];
+        for (int i = 0; i < arr.length; i++) {
+            reversedArray[i] = arr[arr.length - 1 - i];
+        }
+        return reversedArray;
+    }
+}
+
+zadacha 5
+
+public class MaxArray {
+    public static void main(String[] args) {
+        int[] array = {1, 2, 3, 4, 5};
+
+        int max = Max(array);
+
+        System.out.println("Изход: " + max);
+    }
+
+    public static int Max(int[] arr) {
+        int max = arr[0];
+        for (int num : arr) {
+            if (num > max) {
+                max = num;
+            }
+        }
+        return max;
+    }
+}
+
+zadacha 6
+
+public class DiagonalSum {
+    public static void main(String[] args) {
+        int[][] matrica = {
+            {1, 2},
+            {3, 4}
+        };
+
+        int diagonalSum = sumDiagonals(matrica);
+
+        System.out.println("Изход: " + diagonalSum);
+    }
+
+    public static int sumDiagonals(int[][] matrica) {
+        int sum = 0;
+        for (int i = 0; i < matrica.length; i++) {
+            sum += matrica[i][i];
+            sum += matrica[i][matrica.length - 1 - i];
+        }
+        return sum;
+    }
+}
+
+zadacha 7
+
+public class PurviRedSum {
+    public static void main(String[] args) {
+        int[][] matrica = {
+            {1, 2},
+            {3, 4}
+        };
+
+        int PurviRedSum = sumPurviRed(matrica);
+
+        System.out.println("Изход: " + PurviRedSum);
+    }
+
+    public static int sumPurviRed(int[][] matrica) {
+        int sum = 0;
+        for (int col = 0; col < matrica[0].length; col++) {
+            sum += matrica[0][col];
+        }
+        return sum;
+    }
+}
+
+zadacha 8
+
+public class VtoriRedSum {
+    public static void main(String[] args) {
+        int[][] matrica = {
+            {1, 2},
+            {3, 4}
+        };
+
+        int VtoriRedSum = sumVtoriRed(matrica);
+
+        System.out.println("Изход: " + VtoriRedSum);
+    }
+
+    public static int sumVtoriRed(int[][] matrica) {
+        int sum = 0;
+        for (int col = 0; col < matrica[1].length; col++) {
+            sum += matrica[1][col];
+        }
+        return sum;
+    }
+}
+
+zadacha 9
+
+import java.util.Scanner;
+
+public class EvenOdd {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Въведете число: ");
+        int number = scanner.nextInt();
+        scanner.close();
+
+        if (isEven(number)) {
+            System.out.println("Изход: Четно");
+        } else {
+            System.out.println("Изход: Нечетно");
+        }
+    }
+
+    public static boolean isEven(int number) {
+        return number % 2 == 0;
+    }
+}
+
+zadacha 10
+
+import java.util.Scanner;
+
+public class PositiveNegative {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Въведете число: ");
+        int number = scanner.nextInt();
+        scanner.close();
+
+        if (isPositive(number)) {
+            System.out.println("Изход: Положително");
+        } else {
+            System.out.println("Изход: Отрицателно");
+        }
+    }
+
+    public static boolean isPositive(int number) {
+        return number > 0;
+    }
+}
+
+zadacha 11
+
+import java.util.Scanner;
+
+public class GreaterThanTen {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Въведете число: ");
+        int number = scanner.nextInt();
+        scanner.close();
+
+        if (isGreaterThanTen(number)) {
+            System.out.println("Изход: По-голямо от 10");
+        } else {
+            System.out.println("Изход: Не по-голямо от 10");
+        }
+    }
+
+    public static boolean isGreaterThanTen(int number) {
+        return number > 10;
+    }
+}
+
+zadacha 12
+
+import java.util.Scanner;
+
+public class Equal {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Въведете първото число: ");
+        int number1 = scanner.nextInt();
+        System.out.print("Въведете второто число: ");
+        int number2 = scanner.nextInt();
+        scanner.close();
+
+        if (areEqual(number1, number2)) {
+            System.out.println("Изход: Равни");
+        } else {
+            System.out.println("Изход: Неравни");
+        }
+    }
+
+    public static boolean areEqual(int number1, int number2) {
+        return number1 == number2;
+    }
+}
+
+zadacha 13
+
+import java.util.Scanner;
+
+public class Prosto {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Въведете число: ");
+        int number = scanner.nextInt();
+        scanner.close();
+
+        if (isPrime(number)) {
+            System.out.println("Изход: Просто");
+        } else {
+            System.out.println("Изход: Не е просто");
+        }
+    }
+
+    public static boolean isPrime(int number) {
+        if (number <= 1) {
+            return false;
+        }
+
+        if (number <= 3) {
+            return true;
+        }
+
+        if (number % 2 == 0 || number % 3 == 0) {
+            return false;
+        }
+
+        for (int i = 5; i * i <= number; i += 6) {
+            if (number % i == 0 || number % (i + 2) == 0) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
+
+zadacha 14
+
+import java.util.Scanner;
+
+public class Kvadrat {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Въведете цяло число n: ");
+        int n = scanner.nextInt();
+        scanner.close();
+
+        printKvadrat(n);
+    }
+
+    public static void printKvadrat(int n) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+}
+
+zadacha 15
+
+import java.util.Scanner;
+
+public class RavnobedrenTriangleFigure {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Въведете цяло число n: ");
+        int n = scanner.nextInt();
+        scanner.close();
+
+        RavnobedrenTriangle(n);
+    }
+
+    public static void RavnobedrenTriangle(int n) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= i; j++) {
+                System.out.print("* ");
+            }
+            System.out.println();
+        }
+    }
+}
+
