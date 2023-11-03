@@ -1,0 +1,113 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class NotValidSpaceObjectException extends Exception{
+    public NotValidSpaceObjectException(String message) {
+        super (message);
+    }
+}
+
+abstract class SpaceObject {
+    String name;
+    double CoordX;
+    double CoordY;
+    double CoordZ;
+    double mass;
+
+    public SpaceObject(String name, double coordX, double coordY, double coordZ, double mass) {
+        this.name = name;
+        this.CoordX = coordX;
+        this.CoordY = coordY;
+        this.CoordZ = coordZ;
+        this.mass =  mass;
+    }
+
+    public abstract void displayInfo();
+}
+ abstract class OrbitableSpaceObject extends SpaceObject {
+     List<SpaceObject> orbiters;
+
+     public OrbitableSpaceObject(String name, double coordX, double coordY, double coordZ, double mass) {
+         super(name, coordX, coordY, coordZ, mass);
+         this.orbiters = new ArrayList<>();
+     }
+
+     public void addOrbiter(SpaceObject orbiter) {
+         orbiters.add(orbiter);
+     }
+
+     public List<SpaceObject> getOrbiters() {
+         return orbiters;
+     }
+
+     public void orbit(SpaceObject target) throws NotValidSpaceObjectException {
+         if (target instanceof Star || target instanceof Planet) {
+             orbiters.add(target);
+             System.out.println(this.name + " is orbiting around " + target.name);
+         } else {
+             throw new NotValidSpaceObjectException("Invalid orbit target for" + this.name);
+         }
+     }
+     public void move(double x, double y, double z) throws NotValidSpaceObjectException {
+         System.out.println(name + " Is moving its location to :" + x + "," + y + ", " + z);
+         this.CoordX = x;
+         this.CoordY = y;
+         this.CoordZ = z;
+
+     }
+ }
+
+ class Satellite extends SpaceObject {
+     public Satellite(String name, double coordX, double coordY, double coordZ, double mass) {
+         super(name, coordX, coordY, coordZ, mass);
+     }
+     @Override
+     public void displayInfo(){
+         System.out.println("Satellite name: " + name);
+         System.out.println(("Coordinates X = " + CoordX + ", Y =" + CoordY + ", Z =" + CoordZ));
+         System.out.println("Mass: " + mass);
+     }
+ }
+ class Star extends OrbitableSpaceObject {
+     public Star(String name, double coordX, double coordY, double coordZ, double mass) {
+         super(name, coordX, coordY, coordZ, mass);
+     }
+
+     @Override
+     public void displayInfo() {
+         System.out.println("Star name: " + name);
+         System.out.println("Star Coordinates: X =" + CoordX + ", Y =" + CoordY + ", Z =" + CoordZ);
+     }
+ }
+ class Planet extends OrbitableSpaceObject {
+     public Planet(String name, double coordX, double coordY, double coordZ, double mass) {
+         super(name, coordX, coordY, coordZ, mass);
+     }
+     @Override
+     public void displayInfo() {
+         System.out.println("Planet name: " + name);
+         System.out.println(("Planet Coordinates: X= " + CoordX + ", Y =" + CoordY + ", Z =" + CoordZ));
+     }
+ }
+
+public class Main {
+    public static void main(String[] args){
+        Satellite satellite = new Satellite("Sputnik", 10.5, 20.5, 30.2, 1000);
+        Planet Earth = new Planet("Earth", 20, 30, 40, 999);
+        Star Sun = new Star("Sun", 10, 20, 30,  9999);
+        satellite.displayInfo();
+        Earth.displayInfo();
+        Sun.displayInfo();
+
+        try {
+            Sun.move(10, 10, 10);
+        } catch (NotValidSpaceObjectException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+        try {
+            Earth.move(100, 100, 100);
+        } catch (NotValidSpaceObjectException e) {
+            System.out.println("Exception: " + e.getMessage());
+        }
+    }
+ }
