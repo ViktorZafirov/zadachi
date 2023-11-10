@@ -1,0 +1,131 @@
+class EventException extends Exception {
+    public EventException(String message) {
+        super(message);
+    }
+}
+
+class EmptyLineupException extends Exception {
+    public EmptyLineupException(String message) {
+        super(message);
+    }
+}
+
+enum EventType {
+    RUNNING, SWIMMING, CYCLING
+}
+
+class Competitor {
+    private double betForWin;
+    private double oddsToWin;
+
+    public double getBetForWin() {
+        return betForWin;
+    }
+
+    public void setBetForWin(double betForWin) {
+        this.betForWin = betForWin;
+    }
+
+    public double getOddsToWin() {
+        return oddsToWin;
+    }
+
+    public void setOddsToWin(double oddsToWin) {
+        this.oddsToWin = oddsToWin;
+    }
+}
+
+class Event {
+    private Competitor[] competitors;
+
+    public Competitor[] getCompetitors() {
+        return competitors;
+    }
+
+    public void setCompetitors(Competitor[] competitors) {
+        this.competitors = competitors;
+    }
+}
+
+class EventCreator {
+    private EventType eventType;
+
+    public Event getEvent(String competitionType) throws EventException {
+        switch (competitionType) {
+            case "running":
+                eventType = EventType.RUNNING;
+                return new Event();
+            case "swimming":
+                eventType = EventType.SWIMMING;
+                return new Event();
+            case "cycling":
+                eventType = EventType.CYCLING;
+                return new Event();
+            default:
+                throw new EventException("Invalid competition type: " + competitionType);
+        }
+    }
+
+    public void fillLineup(Event event, Competitor[] lineup) throws EmptyLineupException {
+        if (lineup.length == 0) {
+            throw new EmptyLineupException("Lineup is empty");
+        } else {
+            event.setCompetitors(lineup);
+        }
+    }
+
+    public static void placeBet(Event event, int competitorId, double bet) {
+        Competitor[] competitors = event.getCompetitors();
+        double betForWin = competitors[competitorId].getBetForWin();
+        double totalBet = betForWin + bet;
+
+        double newOdds = betForWin / totalBet;
+        newOdds *= 100;
+
+        if (newOdds < 1.05) {
+            newOdds = 1.05;
+        }
+
+        competitors[competitorId].setBetForWin(totalBet);
+        competitors[competitorId].setOddsToWin(newOdds);
+        event.setCompetitors(competitors);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        EventCreator eventCreator = new EventCreator();
+
+        Event runningEvent = eventCreator.getEvent("running");
+        Competitor[] runningCompetitors = {new Competitor(), new Competitor()};
+        runningEvent.setCompetitors(runningCompetitors);
+
+        try {
+            eventCreator.placeBet(runningEvent, 0, 500);
+            eventCreator.placeBet(runningEvent, 1, 300);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid competitor ID.");
+        }
+
+        try {
+            eventCreator.placeBet(runningEvent, 2, 200);
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Invalid competitor ID.");
+        }
+
+        Event cyclingEvent = eventCreator.getEvent("cycling");
+        Competitor[] emptyCompetitors = new Competitor[0];
+
+        try {
+            eventCreator.fillLineup(cyclingEvent, emptyCompetitors);
+        } catch (EmptyLineupException e) {
+            System.out.println("Lineup is empty.");
+        }
+
+        try {
+            Event swimmingEvent = eventCreator.getEvent("football");
+        } catch (EventException e) {
+            System.out.println("Invalid event type.");
+        }
+    }
+}
